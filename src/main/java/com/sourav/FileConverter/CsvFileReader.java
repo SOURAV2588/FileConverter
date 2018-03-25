@@ -31,24 +31,15 @@ public class CsvFileReader {
             while ((line = bufferedReader.readLine())!=null){
                 String[] person = line.split(csvSplitBy);
                 log.info("Person : Title: "+person[0]+" ,Firstname : "+person[1]+" Lastname :"+person[2]);
-
-                //setting all properties from the read file
                 Person readPerson = new Person();
-                readPerson.setTitle(person[0]);
-                readPerson.setFirstName(person[1]);
-                readPerson.setLastName(person[2]);
-                readPerson.setGender(person[3]);
-                readPerson.setSsn(person[4]);
-                readPerson.setPhone(Long.valueOf(person[5]));
-                readPerson.setStreet_address(person[6]);
-                readPerson.setEmail(person[7]);
-
+                personPropertySetter(person,readPerson);
                 //adding the person to the list
                 personList.add(readPerson);
             }
 
             //converting to xml
-            personToXml.personToXmlConverter(personList);
+            //personToXml.personToXmlConverter(personList);
+            System.out.println(personToXml.personListToXmlConverter(personList));
 
             if (bufferedReader != null) {
                 try {
@@ -63,5 +54,17 @@ public class CsvFileReader {
         catch (IOException e){
             log.info("IOException");
         }
+    }
+
+    private void personPropertySetter(String[] person,Person readPerson){
+        //setting all properties from the read file
+        readPerson.setTitle(person[0]);
+        readPerson.setFirstName(person[1]);
+        readPerson.setLastName(person[2]);
+        readPerson.setGender(person[3]);
+        readPerson.setSsn(person[4]);
+        readPerson.setPhone(Long.valueOf(person[5]));
+        readPerson.setStreet_address(person[6]);
+        readPerson.setEmail(person[7]);
     }
 }
